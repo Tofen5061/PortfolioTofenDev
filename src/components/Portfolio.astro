@@ -1,0 +1,55 @@
+---
+import MenuBar from './MenuBar.astro';
+import ProfileSwitcher from './ProfileSwitcher';
+import Icon from './Icon.astro';
+import Services from './sections/Services.astro';
+import Products from './sections/Products.astro';
+import Process from './sections/Process.astro';
+import Skills from './sections/Skills.astro';
+import Projects from './sections/Projects.astro';
+import About from './sections/About.astro';
+import Contact from './sections/Contact.astro';
+import Footer from './sections/Footer.astro';
+import { PROFILES, waLink, type ProfileKey } from '../data/site';
+
+interface Props {
+  profile: ProfileKey;
+}
+
+const { profile } = Astro.props;
+---
+
+<MenuBar profile={profile} />
+
+<main>
+  <ProfileSwitcher client:load initial={profile} />
+
+  <!-- Tofen -->
+  <Services />
+  <Products />
+  <Process />
+
+  <!-- Kevin -->
+  <Skills />
+  <Projects />
+  <About />
+
+  <Contact />
+</main>
+
+<Footer />
+
+{
+  (['tofen', 'kevin'] as const).map((key) => (
+    <a
+      class={`fab only-${key}`}
+      href={waLink(PROFILES[key].cta.message)}
+      target="_blank"
+      rel="noopener"
+      aria-label="Escribir por WhatsApp"
+      title="Escribir por WhatsApp"
+    >
+      <Icon name="message" />
+    </a>
+  ))
+}

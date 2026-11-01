@@ -1,0 +1,45 @@
+---
+import Icon from '../Icon.astro';
+import { PROFILES, waLink } from '../../data/site';
+
+const content = {
+  tofen: {
+    title: '¿Tienes un proyecto <span class="gradient-text">en mente</span>?',
+    text: 'Cuéntanos qué necesitas y te respondemos por WhatsApp con una propuesta clara, sin compromiso.',
+    button: 'Escríbenos por WhatsApp',
+    message: PROFILES.tofen.cta.message,
+  },
+  kevin: {
+    title: '¿Buscas un desarrollador <span class="gradient-text">front end</span>?',
+    text: 'Estoy abierto a trabajo formal y a proyectos freelance. Escríbeme y platicamos.',
+    button: 'Escríbeme por WhatsApp',
+    message: PROFILES.kevin.cta.message,
+  },
+};
+---
+
+<section id="contacto" class="section">
+  <div class="container-x">
+    <div class="card card-static glow-border px-6 py-16 text-center sm:px-12 sm:py-20" data-reveal>
+      {
+        (['tofen', 'kevin'] as const).map((key) => (
+          <div class={`only-${key}`}>
+            <span class="eyebrow">Contacto</span>
+            <h2
+              class="mx-auto mt-6 max-w-2xl font-display text-3xl leading-tight font-bold tracking-tight text-heading sm:text-5xl"
+              set:html={content[key].title}
+            />
+            <p class="mx-auto mt-5 max-w-xl text-base text-text-muted sm:text-lg">{content[key].text}</p>
+            <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
+              <a class="btn btn-primary" href={waLink(content[key].message)} target="_blank" rel="noopener">
+                <Icon name="message" />
+                {content[key].button}
+              </a>
+              {key === 'kevin' && <span class="pill">CV en PDF · Próximamente</span>}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

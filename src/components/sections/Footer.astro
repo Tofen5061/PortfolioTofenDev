@@ -1,0 +1,18 @@
+---
+import Icon from '../Icon.astro';
+---
+
+<footer class="border-t border-primary/10 py-10">
+  <div class="container-x flex flex-col items-center justify-between gap-4 text-sm text-text-muted sm:flex-row">
+    <p>© {new Date().getFullYear()} Tofen · Kevin Martínez</p>
+
+    <button type="button" class="only-tofen group inline-flex cursor-pointer items-center gap-2 hover:text-heading" data-profile-set="kevin">
+      ¿Buscas a Kevin, el desarrollador?
+      <Icon name="arrow-right" class="h-4 w-4 text-primary transition-transform group-hover:translate-x-1" />
+    </button>
+    <button type="button" class="only-kevin group inline-flex cursor-pointer items-center gap-2 hover:text-heading" data-profile-set="tofen">
+      ¿Necesitas una empresa de desarrollo? Conoce Tofen
+      <Icon name="arrow-right" class="h-4 w-4 text-primary transition-transform group-hover:translate-x-1" />
+    </button>
+  </div>
+</footer>

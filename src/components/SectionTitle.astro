@@ -1,0 +1,18 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string; // admite <span class="gradient-text"> para resaltar
+  subtitle?: string;
+}
+
+const { eyebrow, title, subtitle } = Astro.props;
+---
+
+<div class="mx-auto mb-14 max-w-2xl text-center" data-reveal>
+  <span class="eyebrow">{eyebrow}</span>
+  <h2
+    class="mt-5 font-display text-3xl leading-tight font-bold tracking-tight text-heading sm:text-5xl"
+    set:html={title}
+  />
+  {subtitle && <p class="mt-4 text-base text-text-muted sm:text-lg">{subtitle}</p>}
+</div>

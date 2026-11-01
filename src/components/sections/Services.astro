@@ -1,0 +1,29 @@
+---
+import Icon from '../Icon.astro';
+import SectionTitle from '../SectionTitle.astro';
+import { SERVICES } from '../../data/site';
+---
+
+<section id="servicios" class="only-tofen section">
+  <div class="container-x">
+    <SectionTitle
+      eyebrow="Servicios"
+      title='Lo que <span class="gradient-text">construimos</span> para ti'
+      subtitle="Desde una página web hasta el sistema que mueve todo tu negocio."
+    />
+
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        SERVICES.map((service, index) => (
+          <article class="card spot p-7" data-reveal style={`--d: ${index * 90}ms`}>
+            <div class="icon-badge">
+              <Icon name={service.icon} />
+            </div>
+            <h3 class="mt-6 font-display text-lg font-semibold text-heading">{service.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-text-muted">{service.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,78 @@
+---
+import { PROFILES, type ProfileKey } from '../data/site';
+
+interface Props {
+  profile: ProfileKey;
+}
+
+const { profile } = Astro.props;
+
+const NAV = {
+  tofen: [
+    { label: 'Servicios', href: '#servicios' },
+    { label: 'Productos', href: '#productos' },
+    { label: 'Proceso', href: '#proceso' },
+    { label: 'Contacto', href: '#contacto' },
+  ],
+  kevin: [
+    { label: 'Habilidades', href: '#habilidades' },
+    { label: 'Proyectos', href: '#proyectos' },
+    { label: 'Sobre mí', href: '#sobre-mi' },
+    { label: 'Contacto', href: '#contacto' },
+  ],
+};
+---
+
+<header class="menubar" data-menubar>
+  <a href="#" class="flex items-center gap-2.5 font-display text-base font-bold tracking-tight text-heading">
+    <span class="only-tofen flex items-center gap-2.5">
+      <img src={PROFILES.tofen.image} alt="" width="28" height="28" class="rounded-lg" />
+      Tofen
+    </span>
+    <span class="only-kevin flex items-center gap-2.5">
+      <img src={PROFILES.kevin.image} alt="" width="28" height="28" class="rounded-full object-cover" />
+      Kevin Martínez
+    </span>
+  </a>
+
+  {
+    (['tofen', 'kevin'] as const).map((key) => (
+      <nav class={`only-${key} hidden items-center gap-7 md:flex`} aria-label="Secciones">
+        {NAV[key].map((item) => (
+          <a class="nav-link" href={item.href}>
+            {item.label}
+          </a>
+        ))}
+      </nav>
+    ))
+  }
+
+  <div class="seg" role="group" aria-label="Cambiar de perfil">
+    <button type="button" data-profile-set="tofen" aria-pressed={profile === 'tofen' ? 'true' : 'false'}>Tofen</button>
+    <button type="button" data-profile-set="kevin" aria-pressed={profile === 'kevin' ? 'true' : 'false'}>Kevin</button>
+  </div>
+</header>
+
+<script>
+  // Fondo del menú al bajar
+  const menubar = document.querySelector('[data-menubar]');
+  const onScroll = () => menubar?.classList.toggle('is-scrolled', window.scrollY > 16);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Botones que cambian de perfil (menú y pie de página)
+  const profileButtons = document.querySelectorAll<HTMLButtonElement>('[data-profile-set]');
+  profileButtons.forEach((button) =>
+    button.addEventListener('click', () => {
+      window.dispatchEvent(new CustomEvent('profile:set', { detail: button.dataset.profileSet }));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }),
+  );
+
+  window.addEventListener('profile:changed', (event) => {
+    const active = (event as CustomEvent<string>).detail;
+    document.querySelectorAll('.seg [data-profile-set]').forEach((button) => {
+      button.setAttribute('aria-pressed', String((button as HTMLElement).dataset.profileSet === active));
+    });
+  });
+</script>

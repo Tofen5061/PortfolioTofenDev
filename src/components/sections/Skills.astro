@@ -1,0 +1,51 @@
+---
+import Icon from '../Icon.astro';
+import SectionTitle from '../SectionTitle.astro';
+import { SKILLS } from '../../data/site';
+
+const groups = [
+  { title: 'Domino', subtitle: 'Mi día a día, donde más rindo.', items: SKILLS.domino },
+  { title: 'Trabajo con', subtitle: 'Las uso en proyectos reales.', items: SKILLS.trabajoCon },
+];
+
+const allSkills = [...SKILLS.domino, ...SKILLS.trabajoCon];
+---
+
+<section id="habilidades" class="only-kevin section">
+  <div class="container-x">
+    <SectionTitle
+      eyebrow="Habilidades"
+      title='Mi caja de <span class="gradient-text">herramientas</span>'
+      subtitle="Me especializo en la parte que el usuario ve y toca."
+    />
+
+    <div class="grid gap-5 md:grid-cols-2">
+      {
+        groups.map((group, index) => (
+          <article class="card spot p-8" data-reveal style={`--d: ${index * 120}ms`}>
+            <h3 class="font-display text-xl font-semibold text-heading">{group.title}</h3>
+            <p class="mt-1 text-sm text-text-muted">{group.subtitle}</p>
+            <ul class="mt-6 grid grid-cols-2 gap-3">
+              {group.items.map((skill) => (
+                <li class="flex items-center gap-2.5 text-sm text-text">
+                  <Icon name="check" class="h-4 w-4 flex-none text-primary" />
+                  {skill}
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="marquee mt-12" aria-hidden="true">
+      <div class="marquee-track">
+        {
+          [...allSkills, ...allSkills].map((skill) => (
+            <span class="tag px-5 py-2.5 font-display text-base font-semibold whitespace-nowrap">{skill}</span>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

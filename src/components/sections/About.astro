@@ -1,0 +1,37 @@
+---
+import Icon from '../Icon.astro';
+import SectionTitle from '../SectionTitle.astro';
+import { ABOUT } from '../../data/site';
+---
+
+<section id="sobre-mi" class="only-kevin section">
+  <div class="container-x">
+    <SectionTitle eyebrow="Sobre mí" title='Detalle, ritmo y <span class="gradient-text">buen gusto</span>' />
+
+    <div class="grid gap-5 lg:grid-cols-[1.1fr_1fr]">
+      <article class="card card-static p-8 sm:p-10" data-reveal>
+        {
+          ABOUT.paragraphs.map((paragraph) => (
+            <p class="text-base leading-relaxed text-text first:mt-0 sm:text-lg [&+p]:mt-5">{paragraph}</p>
+          ))
+        }
+      </article>
+
+      <div class="grid gap-5">
+        {
+          ABOUT.highlights.map((item, index) => (
+            <article class="card spot flex items-start gap-4 p-6" data-reveal style={`--d: ${index * 100}ms`}>
+              <div class="icon-badge icon-badge-sm">
+                <Icon name={item.icon} />
+              </div>
+              <div>
+                <h3 class="font-semibold text-heading">{item.title}</h3>
+                <p class="mt-1 text-sm leading-relaxed text-text-muted">{item.description}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

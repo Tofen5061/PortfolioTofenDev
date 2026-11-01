@@ -1,0 +1,29 @@
+---
+import SectionTitle from '../SectionTitle.astro';
+import { PROCESS } from '../../data/site';
+---
+
+<section id="proceso" class="only-tofen section">
+  <div class="container-x">
+    <SectionTitle
+      eyebrow="Cómo trabajamos"
+      title='De la idea a tu <span class="gradient-text">app funcionando</span>'
+      subtitle="Un proceso claro, sin sorpresas, y siempre sabes en qué va tu proyecto."
+    />
+
+    <div class="relative">
+    <div class="steps-line hidden lg:block" aria-hidden="true"></div>
+    <ol class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+      {
+        PROCESS.map((step, index) => (
+          <li class="relative flex flex-col items-center text-center" data-reveal style={`--d: ${index * 120}ms`}>
+            <span class="step-num">{index + 1}</span>
+            <h3 class="mt-5 font-display text-lg font-semibold text-heading">{step.title}</h3>
+            <p class="mt-2 max-w-[240px] text-sm leading-relaxed text-text-muted">{step.description}</p>
+          </li>
+        ))
+      }
+    </ol>
+    </div>
+  </div>
+</section>

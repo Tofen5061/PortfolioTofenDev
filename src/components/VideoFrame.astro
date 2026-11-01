@@ -1,0 +1,27 @@
+---
+interface Props {
+  src: string;
+  poster?: string;
+  label: string;
+}
+
+const { src, poster, label } = Astro.props;
+---
+
+<figure class="browser-frame">
+  <div class="browser-bar">
+    <span></span><span></span><span></span>
+    <p>{label}</p>
+  </div>
+  <video
+    class="block w-full"
+    src={src}
+    poster={poster}
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    aria-label={`Demostración de ${label}`}
+  ></video>
+</figure>

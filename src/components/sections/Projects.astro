@@ -1,0 +1,77 @@
+---
+import Icon from '../Icon.astro';
+import SectionTitle from '../SectionTitle.astro';
+import { PROJECTS } from '../../data/site';
+---
+
+<section id="proyectos" class="only-kevin section">
+  <div class="container-x">
+    <SectionTitle
+      eyebrow="Proyectos"
+      title='Cosas que <span class="gradient-text">ya están funcionando</span>'
+      subtitle="Sistemas que construí para negocios reales."
+    />
+
+    <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {
+        PROJECTS.map((project, index) => (
+          <article class="card spot flex flex-col" data-reveal style={`--d: ${index * 110}ms`}>
+            <div class="media">
+              {project.video && project.layout === 'phone' ? (
+                <div class="phone phone-video">
+                  <video
+                    src={project.video}
+                    poster={project.poster}
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    aria-label={`Demostración de ${project.name}`}
+                  />
+                </div>
+              ) : project.video ? (
+                <video
+                  src={project.video}
+                  poster={project.poster}
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  aria-label={`Demostración de ${project.name}`}
+                />
+              ) : (
+                <div class="phone">
+                  <Icon name={project.icon} />
+                  <span>{project.name}</span>
+                </div>
+              )}
+            </div>
+
+            <div class="flex flex-1 flex-col p-7">
+              <h3 class="font-display text-xl font-semibold text-heading">{project.name}</h3>
+              <p class="mt-3 flex-1 text-sm leading-relaxed text-text-muted">{project.description}</p>
+              <div class="mt-5 flex flex-wrap gap-2">
+                {project.tags.map((tag) => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+              {project.liveUrl && (
+                <a
+                  class="mt-6 inline-flex items-center gap-2 self-start text-sm font-semibold text-primary transition-colors hover:text-accent"
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Ver en vivo
+                  <Icon name="external" class="h-4 w-4" />
+                </a>
+              )}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
